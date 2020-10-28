@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbinstall version="1.0" type="plugin" group="user">
+    <name>CB CheckProfile</name>
+    <author>JoomlaJoe and Beat</author>
+    <creationDate>2020-10-28</creationDate>
+    <copyright>(C) 2004-2020 www.joomlapolis.com / Lightning MultiCom SA - and its licensors, all rights reserved
+    </copyright>
+    <license>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2</license>
+    <authorEmail>beat@joomlapolis.com</authorEmail>
+    <authorUrl>www.joomlapolis.com</authorUrl>
+    <version>2.4.0</version>
+    <description>Imposta controllo su campi specifici del profilo utente</description>
+    <params>
+        <param name="user_must_fields" type="field" multiple="true" key="name" default="" blanktext="CTRL+click multiselect" label="Profilo utente campi obbligatori" description="Seleziona i campi che l'utente deve completare nel Profilo" />
+    </params>
+    <files>
+        <filename plugin="cb.checkprofile">cb.checkprofile.php</filename>
+        <filename>index.html</filename>
+        <foldername>xml</foldername>
+    </files>
+</cbinstall>
