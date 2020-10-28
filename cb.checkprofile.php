@@ -17,8 +17,8 @@ if (!(defined('_VALID_CB') || defined('_JEXEC') || defined('_VALID_MOS'))) {
 
 global $_PLUGINS;
 $_PLUGINS->loadPluginGroup('user');
-//$_PLUGINS->registerFunction('onBeforeSaveUserRegistrationRequest', 'checkFields', 'cbcheckfieldPlugin');
-$_PLUGINS->registerFunction('onAfterUserLoginSuccess', '_onlogin', 'cbcheckfieldPlugin');
+//$_PLUGINS->registerFunction('onBeforeSaveUserRegistrationRequest', 'checkFields', 'cbcheckprofilePlugin');
+$_PLUGINS->registerFunction('onAfterUserLoginSuccess', '_onlogin', 'cbcheckprofilePlugin');
 
 //$_PLUGINS->trigger( 'onAfterLogin', array( &$row, $loggedIn, $firstLogin, &$messagesToUser, &$alertMessages, &$return ) );
 //$_PLUGINS->trigger( 'onBeforeSaveUserRegistrationRequest', array( &$msg ) );
