@@ -51,8 +51,14 @@ class cbcheckprofilePlugin extends cbPluginHandler
     {
 
         $_select = $this->build_select_query($this->params->get('user_must_fields'));
+        $ug_whitelist = $this->params->get('ug_whitelist');
         // se nessun campo è stato impostato non eseguo nessun controllo
         if ($_select == "")
+            return true;
+
+        // se l'utente è in whitelist esco direttamente senza fare controlli
+        $in_whitelist = $this->check_user_whitelist($_REQUEST['username'], $ug_whitelist);
+        if ($in_whitelist)
             return true;
 
         $db = JFactory::getDbo();
@@ -79,9 +85,9 @@ class cbcheckprofilePlugin extends cbPluginHandler
             if (is_null($value)
                 || $value == ""
                 || empty($value))
-                 {
-                     $in_error = true;
-                     break;
+            {
+                $in_error = true;
+                break;
             }
         }
 
@@ -90,6 +96,54 @@ class cbcheckprofilePlugin extends cbPluginHandler
             $_japp = JFactory::getApplication();
             $_japp->redirect(JRoute::_('index.php?option=com_comprofiler&view=userdetails', false), 'Per favore completa il tuo profilo per proseguire', 'warning');
         }
+
+    }
+
+    private function check_whitelist_by_user_id($user_id, $ug_whitelist) {
+
+        // se l'utente proviene da un gruppo in whitelist il controllo viene bypassato
+        $user_groups = JAccess::getGroupsByUser($user_id, false);
+        return $this->ug_into_whitelist($ug_whitelist, $user_groups);
+
+    }
+
+    private function ug_into_whitelist($ug_whitelist, $arr_user_groups) {
+
+        if ($ug_whitelist == ""
+            || empty($ug_whitelist)
+            || !is_array($arr_user_groups)
+            || count($arr_user_groups) == 0)
+            return false;
+
+        $ug_arr = explode('|*|', $ug_whitelist);
+        foreach ($ug_arr as $ug) {
+            if (in_array($ug, $arr_user_groups))
+                return true;
+
+        }
+
+        return false;
+    }
+
+    private function check_user_whitelist($username, $ug_whitelist) {
+
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true)
+            ->select('u.id')
+            ->from('#__users as u')
+            ->join('inner', '#__comprofiler AS c ON u.id = c.user_id')
+            ->where('u.username = "' . $username . '"');
+        $db->setQuery($query);
+        $value = $db->loadAssoc();
+
+        if (
+            is_null($value)
+            || !isset($value['id'])
+            || empty($value['id'])
+            || $value['id'] == 0)
+            return false;
+
+        return $this->check_whitelist_by_user_id($value['id'], $ug_whitelist);
 
     }
 

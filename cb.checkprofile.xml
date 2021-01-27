@@ -11,7 +11,23 @@
     <version>2.4.0</version>
     <description>Imposta controllo su campi specifici del profilo utente</description>
     <params>
-        <param name="user_must_fields" type="field" multiple="true" key="name" default="" blanktext="CTRL+click multiselect" label="Profilo utente campi obbligatori" description="Seleziona i campi che l'utente deve completare nel Profilo" />
+        <field name="user_must_fields"
+               type="field"
+               multiple="true"
+               key="name"
+               default=""
+               blanktext="CTRL+click multiselect"
+               label="Profilo utente campi obbligatori"
+               description="Seleziona i campi che l'utente deve completare nel Profilo"
+        />
+        <field name="ug_whitelist"
+               type="usergroup"
+               key="name"
+               default="8"
+               blanktext="CTRL+click multiselect"
+               label="Gruppo/i non soggetti a controlli"
+               description="Seleziona i gruppo/i per i quali non è previso un controllo dei campi"
+               multiple="true" />
     </params>
     <files>
         <filename plugin="cb.checkprofile">cb.checkprofile.php</filename>
