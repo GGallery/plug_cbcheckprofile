@@ -29,7 +29,7 @@
                description="Seleziona i gruppo/i per i quali non è previso un controllo dei campi"
                multiple="true" />
 
-        <field name="url_non_formattato" type="list" default="0" required="true" label="Disattivare formattazione Joomla del link di reindirizzamento alla pagina profilo utente? (Per errori di autorizzazione)" description="Se impostato non elaborerà l'indirizzo di indirizzamento nella modalità interna a Joomla (da usare in caso di errori di autorizzazione">
+        <field name="url_non_formattato" type="list" default="0" required="true" label="Disattivare formattazione Joomla del link di reindirizzamento alla pagina del profilo utente? (Per errori di autorizzazione)" description="Se impostato non elaborerà l'indirizzo di indirizzamento nella modalità interna a Joomla (da usare in caso di errori di autorizzazione">
             <option value="">Please Select</option>
             <option value="0">No</option>
             <option value="1">Si</option>
