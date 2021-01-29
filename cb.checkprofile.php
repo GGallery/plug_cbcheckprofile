@@ -52,6 +52,8 @@ class cbcheckprofilePlugin extends cbPluginHandler
 
         $_select = $this->build_select_query($this->params->get('user_must_fields'));
         $ug_whitelist = $this->params->get('ug_whitelist');
+        $url_non_formattato = $this->params->get('url_non_formattato');
+
         // se nessun campo è stato impostato non eseguo nessun controllo
         if ($_select == "")
             return true;
@@ -93,8 +95,9 @@ class cbcheckprofilePlugin extends cbPluginHandler
 
         // uno dei campi non è valorizzato - vado in errore
         if ($in_error) {
+            $_redirect = ($url_non_formattato == 1) ? 'index.php?option=com_comprofiler&view=userdetails' : JRoute::_('index.php?option=com_comprofiler&view=userdetails', false);
             $_japp = JFactory::getApplication();
-            $_japp->redirect(JRoute::_('index.php?option=com_comprofiler&view=userdetails', false), 'Per favore completa il tuo profilo per proseguire', 'warning');
+            $_japp->redirect($_redirect, 'Per favore completa il tuo profilo per proseguire', 'warning');
         }
 
     }
